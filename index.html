@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DataFrame Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .form-section {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    img {
+      max-width: 600px;
+      margin-top: 20px;
+    }
+    table {
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Upload CSV</h2>
+  <div class="form-section">
+    <form method="POST" enctype="multipart/form-data" action="/">
+      <input type="file" name="csv_file" required>
+      <input type="submit" value="Upload">
+    </form>
+  </div>
+
+  {% if columns %}
+    <div class="form-section">
+      <form method="POST" action="/update_rows">
+        <label for="rowCount">Show rows:</label>
+        <select name="rowCount" id="rowCount">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="all">All</option>
+        </select>
+        <input type="submit" value="Update View">
+      </form>
+    </div>
+  {% endif %}
+
+  {% if table %}
+    <h3>Data Preview</h3>
+    <div class="form-section">
+      {{ table|safe }}
+    </div>
+  {% endif %}
+
+  {% if columns %}
+    <h3>Generate Plot</h3>
+    <div class="form-section">
+      <form method="POST" action="/plot">
+        <label for="column">Choose column to plot:</label>
+        <select name="column" id="column">
+          {% for col in columns %}
+            <option value="{{ col }}">{{ col }}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="Generate Plot">
+      </form>
+    </div>
+  {% endif %}
+
+  {% if plot_url %}
+    <h3>Plot Output</h3>
+    <img src="{{ url_for('static', filename=plot_url) }}" alt="Plot">
+  {% endif %}
+
+</body>
+</html>

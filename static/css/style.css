@@ -1,0 +1,30 @@
+body {
+  background: #f8f9fa;
+  color: #212529;
+  transition: all 0.3s ease;
+}
+.dark-mode {
+  background-color: #121212;
+  color: #eaeaea;
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+}
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ffc107;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease;
+}
+.theme-toggle:hover {
+  transform: rotate(20deg);
+}
